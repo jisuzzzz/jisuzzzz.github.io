@@ -6,4 +6,27 @@ categories: jekyll update
 comments: True 
 ---
 
-안녕하세요
+## 구글 애널리틱스란?
+
+
+* 구글에서 무료로 제공하고 있는 웹분석 서비스.
+* 무료서비스에대가 사용자 인터페이스가 우수해서 접근성이 좋다.
+
+
+___
+
+
+### 구글 애널리틱스 플러그인을 지킬 블로그에 적용하는 방법
+
+
+1. [구글 애널리틱스 사이트](https://analytics.google.com/analytics/web/)에 접속해 회원가입한다.
+2. 데이터 스트림의 웹항목에 들어가 본인 블로그 주소를 입력한다.
+3. 위 과정을 통해 얻은 측정아이디를 기억해 _config.yml에 다음 코드와 함께 추가한다.
+```
+analytics:
+  provider               : "google-gtag"
+                          # false (default), "google", "google-universal", "google-gtag", "custom"
+  google:
+    tracking_id          : "추적 ID"
+    anonymize_ip         : # true, false (default)
+```

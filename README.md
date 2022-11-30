@@ -1,134 +1,179 @@
-# Lanyon
-
-Lanyon is an unassuming [Jekyll](http://jekyllrb.com) theme that places content first by tucking away navigation in a hidden drawer. It's based on [Poole](http://getpoole.com), the Jekyll butler.
-
-![Lanyon](https://f.cloud.github.com/assets/98681/1825266/be03f014-71b0-11e3-9539-876e61530e24.png)
-![Lanyon with open sidebar](https://f.cloud.github.com/assets/98681/1825267/be04a914-71b0-11e3-966f-8afe9894c729.png)
-
-
-## Contents
-
-- [Usage](#usage)
-- [Options](#options)
-  - [Sidebar menu](#sidebar-menu)
-  - [Themes](#themes)
-  - [Reverse layout](#reverse-layout)
-- [Development](#development)
-- [Author](#author)
-- [License](#license)
-
-
-## Usage
-
-Lanyon is a theme built on top of [Poole](https://github.com/poole/poole), which provides a fully furnished Jekyll setup—just download and start the Jekyll server. See [the Poole usage guidelines](https://github.com/poole/poole#usage) for how to install and use Jekyll.
-
-
-## Options
-
-Lanyon includes some customizable options, typically applied via classes on the `<body>` element.
-
-
-### Sidebar menu
-
-Create a list of nav links in the sidebar by assigning each Jekyll page the correct layout in the page's [front-matter](http://jekyllrb.com/docs/frontmatter/).
-
-```
+# Build-up
+## start from git
+1. github에서 username.github.io 으로 public repositories 생성
+2. `$ git clone <repository link>`으로 public repositories clone
+3. `$ git branch` -M main 으로 현재 branch를 main으로 변경
+4. `$ git status` 으로 상태 확인 후 대기
 ---
-layout: page
-title: About
----
+## install Jekyll
+Jekyll은 Ruby언어로 만들어져 있어 Ruby 설치가 필요하다.
+
+
+Mac에는 기본적으로 Ruby가 설치되어있으나 오래된 버전이기에 Jekyll을 지원하지 않을 가능성이 높다
+
+
+1. Command Line Tools 설치(Xcode가 있는 경우 패스)
+
+
+`$ xcode-select —install`
+
+
+2. Ruby 설치
+2. 1. Homebrew 설치
+
+
+`$ /bin/bash -c “$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
+
+
+2. 2. rbenv(Ruby Version Manager)설치
+
+
+`$ brew install rbenv`
+
+
+2. 3 rbenv 설정
+
+
+`$ echo ‘if which rbenv > /dev/null; then eval “$(rbenv init -)”;fi’ >>~/.bash_profile`
+
+
+`$ source ~/.bash_profile`
+
+
+2. 4. Ruby 다운로드
+
+
+`$ rbenv install 3.1.0`
+
+
+
+전역에서 사용할 Ruby 버전을 지정한다
+
+
+`$ rbenv global 3.1.0`
+
+
+다음 명령어로 올바르게 설치 되어있는지 체크
+
+
+`$ rbenv versions`
+
+
+`$ ruby -v`
+
+
+3. Jekyll 설치
+
+
+`$ gem install jekyll bundler github-pages`
+
+
+## 테마 설치
+
+
+1. 원하는 테마를 설치한 후 압축 해제한 파일을 jisuzzzz.github.io 폴더에 붙여넣기 동일한 파일들은 덮어씌우기
+2. 테마에 필요한 패키지를 bundle install을 통해 설치
+3. `$ bundle exec jekyll serve` 를 쳐서 블로그 실행
+4. Lanyou 테마 적용 확인
+5. _config.yml에서 원래 작성된 부분을 내 블로그에 맞춰서 수정
+
+
+```
+# Setup
+title: Jisu's Blog
+tagline: 'Until Die'
+description: 'No Post Blog Made by <a href="https://instagram.com/zzzzsuzz"
+target="_blank">@zzzzsuzz</a>.'
+url: https://jisuzzzz.github.io/
+baseurl: ''
+paginate: 5
+permalink: pretty
+# About/contact
+author:
+name: Jisu Kim
+url: https://instagram.com/zzzzsuzz
+email: meked@naver.com
+# Gems
+plugins:
+- jekyll-paginate
+comment:
+provider: "disqus"
+disqus:
+shortname: "jisu-comments"
+analytics:
+
+provider : "google-gtag" # false (default), "google", "google-universal", "google-gtag", "custom"
+google:
+tracking_id : "G-0LJTEH3T0N"
+anonymize_ip : false
+# Custom vars
+version: 1.1.0
+google_analytics_id: #UA-XXXX-Y
 ```
 
-**Why require a specific layout?** Jekyll will return *all* pages, including the `atom.xml`, and with an alphabetical sort order. To ensure the first link is *Home*, we exclude the `index.html` page from this list by specifying the `page` layout.
+
+## 댓글 추가
+1. Disqus 사이트에 접속해 가입
+2. 가입 과정중 사이트 정보 입력할 때 Website Name 기억
+3. Jekyll Platform 선택, Website URL에 깃블로그 주소 입력
+4. _config.yml에 아래 코드 입력
 
 
-### Themes
-
-Lanyon ships with eight optional themes based on the [base16 color scheme](https://github.com/chriskempson/base16). Apply a theme to change the color scheme (mostly applies to sidebar and links).
-
-![Lanyon with red theme](https://f.cloud.github.com/assets/98681/1825270/be065110-71b0-11e3-9ed8-9b8de753a4af.png)
-![Lanyon with red theme and open sidebar](https://f.cloud.github.com/assets/98681/1825269/be05ec20-71b0-11e3-91ea-a9138ef07186.png)
-
-There are eight themes available at this time.
-
-![Available theme classes](https://f.cloud.github.com/assets/98681/1817044/e5b0ec06-6f68-11e3-83d7-acd1942797a1.png)
-
-To use a theme, add any one of the available theme classes to the `<body>` element in the `default.html` layout, like so:
-
-```html
-<body class="theme-base-08">
-  ...
-</body>
 ```
-
-To create your own theme, look to the Themes section of [included CSS file](https://github.com/poole/lanyon/blob/master/public/css/lanyon.css). Copy any existing theme (they're only a few lines of CSS), rename it, and change the provided colors.
-
-
-### Reverse layout
-
-![Lanyon with reverse layout](https://f.cloud.github.com/assets/98681/1825265/be03f2e4-71b0-11e3-89f1-360705524495.png)
-![Lanyon with reverse layout and open sidebar](https://f.cloud.github.com/assets/98681/1825268/be056174-71b0-11e3-88c8-5055bca4307f.png)
-
-Reverse the page orientation with a single class.
-
-```html
-<body class="layout-reverse">
-  ...
-</body>
+comment:
+provider: “disqius”
+disqus:
+shortname: “<Website Name>
 ```
 
 
-### Sidebar overlay instead of push
+5. _layouts/post.html에 아래 코드 입력
 
-Make the sidebar overlap the viewport content with a single class:
 
-```html
-<body class="sidebar-overlay">
-  ...
-</body>
+```
+{% if page.comments %}
+<div id="disqus_thread"></div>
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT
+* THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR
+* PLATFORM OR CMS.
+*
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT:
+* https://disqus.com/admin/universalcode/#configuration-variables
+*/
+let PAGE_URL = "{{site.url}}{{page.url}}"
+let PAGE_IDENTIFIER = "{{page.url}}"
+var disqus_config = function () {
+// Replace PAGE_URL with your page's canonical URL variable
+this.page.url = PAGE_URL;
+// Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.identifier = PAGE_IDENTIFIER;
+};
+(function() { // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+var d = document, s = d.createElement('script');
+// IMPORTANT: Replace EXAMPLE with your forum shortname!
+s.src = 'https://lee-super.disqus.com/embed.js'; // 이부분에 Website Name 입력해야함!
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>
+Please enable JavaScript to view the
+<a href="https://disqus.com/?ref_noscript" rel="nofollow">
+comments powered by Disqus.
+</a>
+</noscript>
+{% endif %}
 ```
 
-This will keep the content stationary and slide in the sidebar over the side content. It also adds a `box-shadow` based outline to the toggle for contrast against backgrounds, as well as a `box-shadow` on the sidebar for depth.
 
-It's also available for a reversed layout when you add both classes:
-
-```html
-<body class="layout-reverse sidebar-overlay">
-  ...
-</body>
-```
-
-### Sidebar open on page load
-
-Show an open sidebar on page load by modifying the `<input>` tag within the `sidebar.html` layout to add the `checked` boolean attribute:
-
-```html
-<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
-```
-
-Using Liquid you can also conditionally show the sidebar open on a per-page basis. For example, here's how you could have it open on the homepage only:
-
-```html
-<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" {% if page.title =="Home" %}checked{% endif %}>
-```
-
-## Development
-
-Lanyon has two branches, but only one is used for active development.
-
-- `master` for development.  **All pull requests should be to submitted against `master`.**
-- `gh-pages` for our hosted site, which includes our analytics tracking code. **Please avoid using this branch.**
+6. 포스트 작성할 때 comments: True
 
 
-## Author
-
-**Mark Otto**
-- <https://github.com/mdo>
-- <https://twitter.com/mdo>
+## 파비콘 설정
+1. /assets 폴더 내에 favicon.ico 파일을 넣어줌
+2. _includes 폴더 내에 head.html의 위쪽에 아래 코드 삽입 `<link rel=“icon” type=“image/png” href=“/assets/favicon.ico”>`
 
 
-## License
-
-Open sourced under the [MIT license](LICENSE.md).
-
-<3
+Google Analytics에 대한 내용은 블로그에 포스팅
