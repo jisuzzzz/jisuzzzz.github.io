@@ -6,4 +6,79 @@ categories: jekyll update
 comments: True
 ---
 
-안녕하세요
+## Git : 버전관리의 알파이자 오메가
+* >>분산 버전관리 시스템
+
+
+`user $ git init`
+
+
+현재 작업중인 디렉토리를 git 저장소로 지정
+
+
+### Git 의 저장단위, Commit
+
+
+`user $ git status`
+
+
+>> 현재 Git 상태 확인
+
+
+
+
+`user $ git add examle.py`
+
+
+>> examle.py를 생성(혹은 수정)하고, 이를 Commit에 반영하고 싶은 경우
+
+
+
+
+`user $ git commit -m "add examle.py"`
+
+
+>> 변경사항이 반영된 new commit 생성
+
+
+
+
+`user $ git log`
+
+
+>> commit 기록 확인하기(Author, Commitor, Date,...)
+
+### Git의 Branch
+
+
+코드의 흐름을 분산시켜 더욱 효율적인 개발 가능!
+
+
+
+
+`user $ git branch <branch_name>`
+
+
+>> git branch <branch 이름>을 통해 branch 생성
+
+
+
+
+`user $ git checkout <branch_name>`
+
+
+>> 현재 작업중인 branch를 전환
+
+
+
+
+`user $ git branch -d <branch_name>`
+
+
+>> git branch -d <branch_이름>을 통해 branch 삭제
+
+
+
+
+지금까지 Git의 로컬 저장소에서 할 수 있는 일들을 다뤘습니다
+이제는 다른 사람과 협업을~~!~!
